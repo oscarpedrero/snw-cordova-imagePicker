@@ -5,6 +5,8 @@ snw-cordova-imagePicker
 This is a fork of https://github.com/wymsee/cordova-imagePicker with these 
 added enhancements.
 
+Forked to private Pinkbike repo to update build bugs
+
 Added: 
 
     - Select all button (both iOS and Android)
