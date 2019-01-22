@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -23,47 +24,52 @@ public class ImagePicker extends CordovaPlugin {
 	private JSONObject params;
 	 
 	public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
-		 this.callbackContext = callbackContext;
-		 this.params = args.getJSONObject(0);
+	  this.callbackContext = callbackContext;
+	  this.params = args.getJSONObject(0);
 		if (action.equals("getPictures")) {
-			Intent intent = new Intent(cordova.getActivity(), MultiImageChooserActivity.class);
-			int max = 20;
-			Boolean useOriginal = false;
-			Boolean createThumbnail = false;
-			Boolean saveToDataDirectory = false;
-			int desiredWidth = 0;
-			int desiredHeight = 0;
-			int quality = 100;
-			if (this.params.has("maximumImagesCount")) {
-				max = this.params.getInt("maximumImagesCount");
-			}
-			if (this.params.has("useOriginal")) {
-				useOriginal = this.params.getBoolean("useOriginal");
-			}
-			if (this.params.has("createThumbnail")) {
-				createThumbnail = this.params.getBoolean("createThumbnail");
-			}
-			if (this.params.has("saveToDataDirectory")) {
-				saveToDataDirectory = this.params.getBoolean("saveToDataDirectory");
-			}
-			if (this.params.has("width")) {
-				desiredWidth = this.params.getInt("width");
-			}
-			if (this.params.has("height")) {
-				desiredWidth = this.params.getInt("height");
-			}
-			if (this.params.has("quality")) {
-				quality = this.params.getInt("quality");
-			}
-			intent.putExtra("MAX_IMAGES", max);
-			intent.putExtra("USE_ORIGINAL", useOriginal);
-			intent.putExtra("CREATE_THUMBNAIL", createThumbnail);
-			intent.putExtra("SAVE_TO_DATADIRECTORY", saveToDataDirectory);
-			intent.putExtra("WIDTH", desiredWidth);
-			intent.putExtra("HEIGHT", desiredHeight);
-			intent.putExtra("QUALITY", quality);
-			if (this.cordova != null) {
-				this.cordova.startActivityForResult((CordovaPlugin) this, intent, 0);
+		  if (cordova.hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        Intent intent = new Intent(cordova.getActivity(), MultiImageChooserActivity.class);
+        int max = 20;
+        Boolean useOriginal = false;
+        Boolean createThumbnail = false;
+        Boolean saveToDataDirectory = false;
+        int desiredWidth = 0;
+        int desiredHeight = 0;
+        int quality = 100;
+        if (this.params.has("maximumImagesCount")) {
+          max = this.params.getInt("maximumImagesCount");
+        }
+        if (this.params.has("useOriginal")) {
+          useOriginal = this.params.getBoolean("useOriginal");
+        }
+        if (this.params.has("createThumbnail")) {
+          createThumbnail = this.params.getBoolean("createThumbnail");
+        }
+        if (this.params.has("saveToDataDirectory")) {
+          saveToDataDirectory = this.params.getBoolean("saveToDataDirectory");
+        }
+        if (this.params.has("width")) {
+          desiredWidth = this.params.getInt("width");
+        }
+        if (this.params.has("height")) {
+          desiredWidth = this.params.getInt("height");
+        }
+        if (this.params.has("quality")) {
+          quality = this.params.getInt("quality");
+        }
+        intent.putExtra("MAX_IMAGES", max);
+        intent.putExtra("USE_ORIGINAL", useOriginal);
+        intent.putExtra("CREATE_THUMBNAIL", createThumbnail);
+        intent.putExtra("SAVE_TO_DATADIRECTORY", saveToDataDirectory);
+        intent.putExtra("WIDTH", desiredWidth);
+        intent.putExtra("HEIGHT", desiredHeight);
+        intent.putExtra("QUALITY", quality);
+        if (this.cordova != null) {
+          this.cordova.startActivityForResult((CordovaPlugin) this, intent, 0);
+        }
+			} else {
+			  cordova.requestPermission(this, 1, Manifest.permission.READ_EXTERNAL_STORAGE);
+			  return false;
 			}
 		}
 		return true;
