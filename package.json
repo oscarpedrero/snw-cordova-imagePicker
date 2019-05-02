@@ -1,0 +1,12 @@
+{
+  "name": "th.co.snowwhite.imagepicker",
+  "version": "1.0.6",
+  "cordova": {
+    "id": "th.co.snowwhite.imagepicker",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "description": "This plugin allows selection of multiple images from the camera roll / gallery in a phonegap app"
+}
