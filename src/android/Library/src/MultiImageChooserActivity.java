@@ -240,7 +240,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
             break;
         case CURSORLOADER_REAL:
             img.add(MediaStore.Images.Thumbnails.DATA);
-            //img.add(MediaStore.Images.Media.ORIENTATION);
+            img.add(MediaStore.Images.Media.ORIENTATION);
             break;
         default:
             break;
@@ -592,7 +592,7 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
                     ExifInterface.TAG_ISO,
                     ExifInterface.TAG_MAKE,
                     ExifInterface.TAG_MODEL,
-                    //ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.TAG_ORIENTATION,
                     ExifInterface.TAG_SUBSEC_TIME,
                     ExifInterface.TAG_SUBSEC_TIME_DIG,
                     ExifInterface.TAG_SUBSEC_TIME_ORIG,
