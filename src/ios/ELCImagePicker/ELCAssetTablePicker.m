@@ -235,10 +235,10 @@
         }
     }
     [self performSelectorOnMainThread:@selector(returnAssets:) withObject:selectedAssetsImages waitUntilDone:YES];
-    [self.activityIndicator removeFromSuperview];
 }
 
 - (void) returnAssets:(NSMutableArray *)selectedAssetsImages {
+      [self.activityIndicator removeFromSuperview];
       [self.parent selectedAssets:selectedAssetsImages];
 }
 
